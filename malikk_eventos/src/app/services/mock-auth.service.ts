@@ -27,6 +27,12 @@ export class MockAuthService {
     email: 'sergio@gmail.com',
     password: '12345678',
   };
+  private readonly clienteDemo = {
+    nombre: 'sergio p',
+    email: 'sergio@gmail.com',
+    telefono: '3207882543',
+    password: '12345678',
+  };
 
   async registrar(datos: DatosRegistro): Promise<void> {
     await this.guardarUsuario(datos, 'Cliente');
@@ -42,6 +48,18 @@ export class MockAuthService {
 
   async iniciarSesion(emailIngresado: string, password: string): Promise<PerfilRegistrado> {
     const email = emailIngresado.trim().toLowerCase();
+
+    if (email === this.clienteDemo.email && password === this.clienteDemo.password) {
+      const perfil: PerfilRegistrado = {
+        nombre: this.clienteDemo.nombre,
+        email: this.clienteDemo.email,
+        telefono: this.clienteDemo.telefono,
+        tipo_usuario: 'Cliente',
+      };
+      sessionStorage.setItem(this.sesionKey, JSON.stringify(perfil));
+      return perfil;
+    }
+
     const usuario = this.obtenerUsuarios().find((item) => item.email === email);
 
     if (!usuario || usuario.tipo_usuario === 'Administrador'
