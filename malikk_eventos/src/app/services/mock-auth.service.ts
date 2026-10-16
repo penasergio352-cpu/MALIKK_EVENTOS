@@ -102,8 +102,11 @@ export class MockAuthService {
     const usuarios = this.obtenerUsuarios();
     const email = datos.email.trim().toLowerCase();
 
-    if (usuarios.some((usuario) => usuario.email === email)) {
-      throw new Error('Ya existe una cuenta con ese correo.');
+    const correoReservado = [this.adminDemo.email, this.clienteDemo.email]
+      .some((correo) => correo.trim().toLowerCase() === email);
+
+    if (correoReservado || usuarios.some((usuario) => usuario.email === email)) {
+      throw new Error('Ya existe una cuenta con ese correo. Usa un correo diferente.');
     }
 
     const salt = this.crearSalt();
