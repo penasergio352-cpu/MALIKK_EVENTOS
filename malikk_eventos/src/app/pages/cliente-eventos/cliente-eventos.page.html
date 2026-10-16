@@ -1,0 +1,17 @@
+<main class="events-page">
+	<header class="events-page__header">
+		<p class="events-page__eyebrow">MALIKK EVENTOS</p>
+		<h1>Eventos disponibles</h1>
+		<p>Explora los eventos y elige al que quieres asistir.</p>
+	</header>
+
+	<section class="events-page__grid" aria-label="Lista de eventos disponibles">
+		@for (evento of eventos; track evento.ID_evento) {
+			<app-evento-card
+				[evento]="evento"
+				[mostrarAccionReserva]="true"
+				(reservar)="verReserva($event)"
+			/>
+		}
+	</section>
+</main>

@@ -1,0 +1,21 @@
+<section>
+  <div>
+    <h2>Bienvenido a Malikk, registrate o inicia sesion para disfrutar de nuestros Servicios&amp;Eventos</h2>
+  </div>
+
+
+  <div>
+    <h2>Iniciar sesión</h2>
+    <form #loginForm="ngForm" (ngSubmit)="iniciarSesion(loginForm)">
+      @if (mensajeRegistro) {
+        <p class="form-message form-message--success" role="status">Cuenta creada. Ya puedes iniciar sesión.</p>
+      }
+      <input type="email" name="login_email" placeholder="Correo" aria-label="Correo" [(ngModel)]="formulario.email" required autocomplete="email">
+      <input type="password" name="login_password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="formulario.password" required autocomplete="current-password">
+      @if (mensajeError) {
+        <p class="form-message" role="alert">{{ mensajeError }}</p>
+      }
+      <button type="submit">Iniciar sesión</button>
+    </form>
+  </div>
+</section>

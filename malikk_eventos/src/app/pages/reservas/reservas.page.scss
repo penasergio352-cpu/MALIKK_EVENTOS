@@ -1,0 +1,96 @@
+:host {
+	min-height: 100vh;
+	display: block;
+	color-scheme: dark;
+	padding-bottom: 72px;
+	color: var(--ice);
+	background:
+		repeating-linear-gradient(90deg, transparent 0 79px, rgba(255, 86, 114, 0.025) 80px),
+		radial-gradient(ellipse at 70% 20%, rgba(255, 196, 94, 0.12), transparent 38%),
+		linear-gradient(145deg, #0b0d12 0%, #12151d 54%, #0a0c11 100%);
+	font-family: 'DM Sans', sans-serif;
+}
+
+:host > section {
+	width: min(740px, calc(100% - 40px));
+	margin: clamp(38px, 7vh, 76px) auto 0;
+	padding: clamp(26px, 5vw, 50px);
+	border: 1px solid var(--line);
+	background: linear-gradient(150deg, rgba(20, 23, 31, 0.94), rgba(13, 16, 23, 0.98));
+	box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+h2 {
+	margin: 0 0 28px;
+	color: var(--ice);
+	font: 700 clamp(1.55rem, 3vw, 2rem) 'Orbitron', sans-serif;
+}
+
+form {
+	display: grid;
+	gap: 14px;
+}
+
+form p {
+	margin: 0;
+}
+
+label {
+	display: block;
+	margin-bottom: 8px;
+	color: #c5c9d2;
+	font-size: 0.84rem;
+	font-weight: 700;
+}
+
+input,
+select {
+	width: 100%;
+	min-height: 50px;
+	padding: 0 14px;
+	font: inherit;
+	border: 1px solid rgba(255, 86, 114, 0.25);
+	border-radius: 2px;
+	outline: none;
+	background: rgba(8, 10, 15, 0.82);
+	color: var(--ice);
+	transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+select:invalid,
+select option:first-child {
+	color: #a5aab5;
+}
+
+input:focus-visible,
+select:focus-visible {
+	border-color: var(--aqua);
+	box-shadow: 0 0 0 3px rgba(255, 196, 94, 0.14);
+}
+
+button {
+	min-height: 52px;
+	margin-top: 8px;
+	font: inherit;
+	border: 0;
+	border-radius: 2px;
+	background: linear-gradient(105deg, var(--mint), var(--aqua));
+	color: var(--ink);
+	cursor: pointer;
+	font-family: 'Orbitron', sans-serif;
+	font-size: 0.84rem;
+	font-weight: 800;
+	transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 26px rgba(255, 86, 114, 0.26);
+}
+
+@media (max-width: 480px) {
+	:host > section {
+		width: calc(100% - 32px);
+		margin-top: 28px;
+	}
+}

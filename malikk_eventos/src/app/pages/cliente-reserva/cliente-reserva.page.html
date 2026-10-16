@@ -1,0 +1,36 @@
+<main class="customer-reservations-page">
+	<header class="customer-reservations-page__header">
+		<p class="customer-reservations-page__eyebrow">PERFIL CLIENTE</p>
+		<h1>Mis reservas</h1>
+		<p>Consulta los eventos reservados y el estado de cada solicitud.</p>
+	</header>
+
+	<section class="customer-reservations-page__list" aria-label="Mis reservas">
+		@for (reserva of reservas; track reserva.ID_reserva) {
+			<article class="reservation-entry">
+				<header class="reservation-entry__header">
+					<div>
+						<p class="reservation-entry__id">RESERVA #{{ reserva.ID_reserva }}</p>
+						<h2>{{ reserva.nombre_evento }}</h2>
+					</div>
+					<span class="reservation-entry__status" [attr.data-status]="reserva.estado.toLowerCase()">
+						{{ reserva.estado }}
+					</span>
+				</header>
+
+				<dl class="reservation-entry__details">
+					<div>
+						<dt>Entradas</dt>
+						<dd>{{ reserva.cantidad_entradas }}</dd>
+					</div>
+					<div>
+						<dt>Solicitud enviada</dt>
+						<dd>{{ reserva.fecha_solicitud | date: 'dd/MM/yyyy' }}</dd>
+					</div>
+				</dl>
+			</article>
+		} @empty {
+			<p class="customer-reservations-page__empty">No tienes reservas todavía.</p>
+		}
+	</section>
+</main>

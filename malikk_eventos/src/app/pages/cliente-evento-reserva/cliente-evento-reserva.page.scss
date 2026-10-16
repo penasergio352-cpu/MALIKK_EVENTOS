@@ -1,0 +1,105 @@
+:host {
+  display: block;
+  min-height: 100%;
+  color: var(--ice);
+}
+
+.event-reservation-page {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.event-reservation-page__header {
+  margin-bottom: 1.5rem;
+}
+
+.event-reservation-page__header a,
+.event-reservation-page__empty a {
+  color: var(--mint);
+  font-weight: 700;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+}
+
+.event-reservation-page__header a:hover,
+.event-reservation-page__header a:focus-visible,
+.event-reservation-page__empty a:hover,
+.event-reservation-page__empty a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.event-reservation-page__eyebrow {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--aqua);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  color: var(--ice);
+  font-size: 1.5rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.event-reservation-page__header > p:last-child,
+.event-reservation-page__empty p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.event-reservation-page__empty {
+  padding-block: 2rem;
+}
+
+.reservation-confirmation {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.reservation-confirmation h2 {
+  margin: 0 0 1rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.125rem;
+}
+
+.reservation-confirmation label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+}
+
+.reservation-confirmation input {
+  width: min(100%, 10rem);
+  min-height: 44px;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--ice);
+  font: inherit;
+}
+
+.reservation-confirmation p {
+  color: var(--muted);
+}
+
+.reservation-confirmation__error {
+  color: #ff8f8f !important;
+}
+
+.reservation-confirmation button {
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 4px;
+  background: var(--mint);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}

@@ -1,0 +1,37 @@
+<main class="admin-page">
+	@if (!autenticado) {
+		<section class="admin-panel">
+			<p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
+			<h1>Acceso de administrador</h1>
+			<form #loginAdmin="ngForm" (ngSubmit)="iniciarSesion(loginAdmin)">
+				<input type="email" name="admin_email" placeholder="Correo administrador" aria-label="Correo administrador" [(ngModel)]="credenciales.email" required autocomplete="username">
+				<input type="password" name="admin_password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="credenciales.password" required autocomplete="current-password">
+				@if (mensaje) {
+					<p class="form-message" role="alert">{{ mensaje }}</p>
+				}
+				<button type="submit">Iniciar sesión</button>
+			</form>
+		</section>
+	} @else {
+		<section class="admin-panel">
+			<div class="panel-heading">
+				<div>
+					<p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
+					<h1>Registrar agente</h1>
+				</div>
+				<button class="button-secondary" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+			</div>
+			<form #agenteForm="ngForm" (ngSubmit)="registrarAgente(agenteForm)">
+				<input type="text" name="nombre" placeholder="Nombre completo" aria-label="Nombre completo" [(ngModel)]="agente.nombre" required>
+				<input type="email" name="email" placeholder="Correo" aria-label="Correo" [(ngModel)]="agente.email" required autocomplete="email">
+				<input type="tel" name="telefono" placeholder="Teléfono" aria-label="Teléfono" [(ngModel)]="agente.telefono" required>
+				<input type="password" name="password" placeholder="Contraseña inicial" aria-label="Contraseña inicial" [(ngModel)]="agente.password" required minlength="8" autocomplete="new-password">
+				<input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" aria-label="Confirmar contraseña" [(ngModel)]="agente.confirmarPassword" required minlength="8" autocomplete="new-password">
+				@if (mensaje) {
+					<p class="form-message" [class.form-message--success]="mensaje.startsWith('Agente registrado')" role="status">{{ mensaje }}</p>
+				}
+				<button type="submit">Crear cuenta de agente</button>
+			</form>
+		</section>
+	}
+</main>

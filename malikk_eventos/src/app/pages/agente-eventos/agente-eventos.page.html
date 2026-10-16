@@ -1,0 +1,106 @@
+<main class="agent-events-page">
+	<header class="agent-events-page__header">
+		<p class="agent-events-page__eyebrow">PANEL DE AGENTE</p>
+		<h1>Eventos registrados</h1>
+		<p>Consulta los eventos disponibles en la plataforma.</p>
+	</header>
+
+	<details class="event-form">
+		<summary>Registrar evento</summary>
+		<form #formularioEvento="ngForm" (ngSubmit)="registrarEvento(formularioEvento)">
+			<label>
+				<span>Nombre del evento</span>
+				<input type="text" name="nombre" [(ngModel)]="eventoForm.nombre" required maxlength="100">
+			</label>
+			<label>
+				<span>Teatro o recinto</span>
+				<input type="text" name="teatro" [(ngModel)]="eventoForm.teatro" required maxlength="100">
+			</label>
+			<div class="event-image-field event-form__wide">
+				<span class="event-image-field__label">Imagen del evento</span>
+				<div
+					class="event-image-dropzone"
+					[class.is-dragging]="imagenArrastrada"
+					tabindex="0"
+					aria-label="Area para agregar imagen del evento. Arrastra, pega o elige una imagen."
+					(dragover)="permitirSoltarImagen($event)"
+					(dragleave)="dejarDeArrastrarImagen($event)"
+					(drop)="soltarImagen($event)"
+					(paste)="pegarImagen($event)"
+				>
+					<input
+						#selectorImagen
+						class="event-image-dropzone__input"
+						type="file"
+						accept="image/jpeg,image/png,image/webp,image/gif"
+						aria-label="Seleccionar imagen del evento"
+						(change)="seleccionarImagen($event)"
+					>
+					@if (eventoForm.imagenUrl) {
+						<img class="event-image-dropzone__preview" [src]="eventoForm.imagenUrl" alt="Vista previa de la imagen del evento">
+					}
+					<p>Arrastra una imagen aqui o pegala con Ctrl+V.</p>
+					<p>Formatos: JPG, PNG, WebP o GIF. Maximo 5 MB.</p>
+					@if (nombreImagen) {
+						<p class="event-image-dropzone__filename">{{ nombreImagen }}</p>
+					}
+					<div class="event-image-dropzone__actions">
+						<button type="button" (click)="selectorImagen.click()">Elegir imagen</button>
+						@if (eventoForm.imagenUrl) {
+							<button type="button" class="event-image-dropzone__remove" (click)="quitarImagen()">Quitar imagen</button>
+						}
+					</div>
+					@if (mensajeImagen) {
+						<p class="event-image-dropzone__message" role="status">{{ mensajeImagen }}</p>
+					}
+				</div>
+			</div>
+			<label>
+				<span>Fecha de inicio</span>
+				<input type="date" name="fecha_inicio" [(ngModel)]="eventoForm.fecha_inicio" required>
+			</label>
+			<label>
+				<span>Fecha de fin</span>
+				<input type="date" name="fecha_fin" [(ngModel)]="eventoForm.fecha_fin" required>
+			</label>
+			<label>
+				<span>Hora de inicio</span>
+				<input type="number" name="hora_inicio" [(ngModel)]="eventoForm.hora_inicio" min="0" max="23" step="1" required>
+			</label>
+			<label>
+				<span>Hora de fin</span>
+				<input type="number" name="hora_fin" [(ngModel)]="eventoForm.hora_fin" min="0" max="23" step="1" required>
+			</label>
+			<label>
+				<span>Precio de entrada en línea</span>
+				<input type="number" name="precio_base_entrada" [(ngModel)]="eventoForm.precio_base_entrada" min="0" step="0.01" required>
+			</label>
+			<label>
+				<span>Adicional por compra en taquilla</span>
+				<input type="number" name="precio_base" [(ngModel)]="eventoForm.precio_base" min="0" step="0.01" required>
+			</label>
+			<label>
+				<span>Capacidad total</span>
+				<input type="number" name="capacidad_total" [(ngModel)]="eventoForm.capacidad_total" min="1" step="1" required>
+			</label>
+			<label class="event-form__wide">
+				<span>Descripción</span>
+				<textarea name="descripcion" [(ngModel)]="eventoForm.descripcion" required maxlength="500" rows="3"></textarea>
+			</label>
+			<label class="event-form__wide">
+				<span>Observaciones</span>
+				<textarea name="observaciones" [(ngModel)]="eventoForm.observaciones" maxlength="500" rows="2"></textarea>
+			</label>
+			<div class="event-form__actions">
+				<button type="submit">Guardar evento</button>
+				<p role="status" aria-live="polite">{{ mensaje }}</p>
+			</div>
+		</form>
+	</details>
+
+	<section class="agent-events-page__grid" aria-label="Eventos registrados">
+		@for (evento of eventos; track evento.ID_evento) {
+			<app-evento-card [evento]="evento" />
+		}
+	</section>
+</main>

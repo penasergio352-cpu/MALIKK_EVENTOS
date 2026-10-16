@@ -1,0 +1,36 @@
+<main class="event-reservation-page">
+	@if (evento) {
+		<header class="event-reservation-page__header">
+			<a routerLink="/cliente/cliente-evento">Volver a eventos</a>
+			<p class="event-reservation-page__eyebrow">RESUMEN DEL EVENTO</p>
+			<h1>Evento seleccionado</h1>
+			<p>Revisa los datos del evento antes de continuar.</p>
+		</header>
+
+		<app-evento-card [evento]="evento" />
+
+		<section class="reservation-confirmation" aria-labelledby="reservation-title">
+			<h2 id="reservation-title">Confirmar reserva</h2>
+			<label for="ticket-quantity">Cantidad de entradas</label>
+			<input
+				id="ticket-quantity"
+				type="number"
+				min="1"
+				[max]="evento.capacidad_total"
+				[value]="cantidadEntradas"
+				(change)="actualizarCantidad($event)"
+			>
+			<p>La solicitud se enviará con estado Pendiente.</p>
+			@if (mensajeError) {
+				<p class="reservation-confirmation__error" role="alert">{{ mensajeError }}</p>
+			}
+			<button type="button" (click)="confirmarReserva()">Enviar solicitud</button>
+		</section>
+	} @else {
+		<section class="event-reservation-page__empty">
+			<h1>No se encontró el evento</h1>
+			<p>Selecciona un evento disponible para ver sus detalles.</p>
+			<a routerLink="/cliente/cliente-evento">Ver eventos</a>
+		</section>
+	}
+</main>

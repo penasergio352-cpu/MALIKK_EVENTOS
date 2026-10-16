@@ -1,0 +1,14 @@
+  <div>
+    <h2>Registrarse</h2>
+    <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
+      <input type="text" name="nombre" placeholder="Nombre completo" aria-label="Nombre completo" [(ngModel)]="formulario.nombre" required>
+      <input type="email" name="email" placeholder="Correo" aria-label="Correo" [(ngModel)]="formulario.email" required>
+      <input type="tel" name="telefono" placeholder="Teléfono" aria-label="Teléfono" [(ngModel)]="formulario.telefono" required>
+      <input type="password" name="password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="formulario.password" required minlength="8" autocomplete="new-password">
+      <input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" aria-label="Confirmar contraseña" [(ngModel)]="formulario.confirmarPassword" required minlength="8" autocomplete="new-password">
+      @if (mensaje) {
+        <p class="form-message" role="alert">{{ mensaje }}</p>
+      }
+      <button type="submit">Crear cuenta</button>
+    </form>
+  </div>

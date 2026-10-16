@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.event-card {
+  height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: linear-gradient(145deg, var(--panel-raised), var(--panel));
+  color: var(--ice);
+}
+
+.event-card__image,
+.event-card__image-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.event-card__image {
+  object-fit: cover;
+}
+
+.event-card__image-placeholder {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.event-card__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.event-card__status {
+  color: var(--mint);
+}
+
+h2 {
+  margin: 1.25rem 0 0.25rem;
+  color: var(--ice);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.event-card__venue,
+.event-card__description {
+  margin: 0.5rem 0 0;
+  line-height: 1.5;
+}
+
+.event-card__venue {
+  color: var(--aqua);
+  font-weight: 600;
+}
+
+.event-card__description {
+  color: var(--muted);
+}
+
+.event-card__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0;
+}
+
+.event-card__details div {
+  min-width: 0;
+}
+
+dt {
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+dd {
+  margin: 0;
+  color: var(--ice);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.event-card__reserve {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 1.25rem;
+  border: 0;
+  border-radius: 4px;
+  background: var(--mint);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.event-card__reserve:hover,
+.event-card__reserve:focus-visible {
+  background: var(--ice);
+  outline: 2px solid var(--aqua);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .event-card__details {
+    grid-template-columns: 1fr;
+  }
+}

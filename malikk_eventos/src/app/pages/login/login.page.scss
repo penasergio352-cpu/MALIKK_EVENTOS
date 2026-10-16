@@ -1,0 +1,153 @@
+:host {
+	min-height: 100vh;
+	display: block;
+	color-scheme: dark;
+	color: var(--ice);
+	background:
+		repeating-linear-gradient(90deg, transparent 0 79px, rgba(255, 86, 114, 0.025) 80px),
+		radial-gradient(ellipse at 18% 45%, rgba(255, 86, 114, 0.12), transparent 42%),
+		linear-gradient(145deg, #0b0d12 0%, #12151d 54%, #0a0c11 100%);
+	font-family: 'DM Sans', sans-serif;
+}
+
+:host > section {
+	width: min(1320px, calc(100% - 48px));
+	min-height: calc(100vh - 82px);
+	margin: 0 auto;
+	padding: clamp(48px, 8vh, 96px) 0;
+	display: grid;
+	grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+	align-items: center;
+	gap: clamp(40px, 8vw, 120px);
+}
+
+:host > section > div:first-of-type {
+	position: relative;
+	padding: 34px 0 34px clamp(24px, 4vw, 58px);
+	border-left: 2px solid var(--mint);
+}
+
+:host > section > div:first-of-type::before {
+	display: block;
+	margin-bottom: 22px;
+	color: var(--aqua);
+	content: 'MALIKK / MUSICA CULTURE';
+	font: 700 0.7rem 'Orbitron', sans-serif;
+}
+
+:host > section > div:first-of-type h2 {
+	max-width: 720px;
+	margin: 0;
+	color: var(--ice);
+	font: 700 clamp(2rem, 4vw, 4.1rem)/1.22 'Orbitron', sans-serif;
+	text-wrap: balance;
+	text-shadow: 0 0 30px rgba(255, 196, 94, 0.16);
+}
+
+:host > section > div:last-of-type {
+	position: relative;
+	padding: clamp(26px, 4vw, 46px);
+	border: 1px solid var(--line);
+	background: linear-gradient(150deg, rgba(20, 23, 31, 0.94), rgba(13, 16, 23, 0.98));
+	box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+:host > section > div:last-of-type::before {
+	position: absolute;
+	top: -1px;
+	left: 28px;
+	width: 76px;
+	height: 2px;
+	background: var(--aqua);
+	content: '';
+	box-shadow: 0 0 16px rgba(255, 196, 94, 0.8);
+}
+
+:host > section > div:last-of-type h2 {
+	margin: 0 0 28px;
+	color: var(--ice);
+	font: 700 1.3rem 'Orbitron', sans-serif;
+}
+
+form {
+	display: grid;
+	gap: 16px;
+}
+
+input,
+select {
+	width: 100%;
+	min-height: 52px;
+	padding: 0 15px;
+	font: inherit;
+	border: 1px solid rgba(255, 86, 114, 0.25);
+	border-radius: 2px;
+	outline: none;
+	background: rgba(8, 10, 15, 0.82);
+	color: var(--ice);
+	transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+input::placeholder,
+select:invalid {
+	color: #a5aab5;
+}
+
+input:focus-visible,
+select:focus-visible {
+	border-color: var(--aqua);
+	box-shadow: 0 0 0 3px rgba(255, 196, 94, 0.14);
+}
+
+.form-message {
+	margin: 0;
+	color: #ff8f8f;
+}
+
+.form-message--success {
+	color: var(--mint);
+}
+
+button {
+	min-height: 52px;
+	margin-top: 8px;
+	font: inherit;
+	border: 0;
+	border-radius: 2px;
+	background: linear-gradient(105deg, var(--mint), var(--aqua));
+	color: var(--ink);
+	cursor: pointer;
+	font-family: 'Orbitron', sans-serif;
+	font-size: 0.84rem;
+	font-weight: 800;
+	transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 26px rgba(255, 86, 114, 0.26);
+}
+
+@media (max-width: 760px) {
+	:host > section {
+		min-height: auto;
+		padding: 54px 0 68px;
+		grid-template-columns: 1fr;
+		gap: 34px;
+	}
+
+	:host > section > div:first-of-type {
+		padding: 12px 0 12px 22px;
+	}
+
+	:host > section > div:first-of-type h2 {
+		font-size: clamp(1.55rem, 5vw, 2rem);
+		line-height: 1.25;
+	}
+}
+
+@media (max-width: 420px) {
+	:host > section {
+		width: calc(100% - 32px);
+	}
+}

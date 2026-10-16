@@ -1,0 +1,50 @@
+<main class="agent-reservations-page">
+	<header class="agent-reservations-page__header">
+		<p class="agent-reservations-page__eyebrow">PANEL DE AGENTE</p>
+		<h1>Solicitudes de reserva</h1>
+		<p>Consulta las solicitudes recibidas y su estado actual.</p>
+	</header>
+
+	<section class="agent-reservations-page__list" aria-label="Todas las solicitudes de reserva">
+		@for (reserva of reservas; track reserva.ID_reserva) {
+			<article class="agent-reservation-entry">
+				<header class="agent-reservation-entry__header">
+					<div>
+						<p class="agent-reservation-entry__id">RESERVA #{{ reserva.ID_reserva }}</p>
+						<h2>{{ reserva.nombre_evento }}</h2>
+					</div>
+					<label class="agent-reservation-entry__status-control">
+						<span>Estado</span>
+						<select
+							[ngModel]="reserva.estado"
+							[attr.data-status]="reserva.estado.toLowerCase()"
+							[attr.aria-label]="'Estado de reserva #' + reserva.ID_reserva"
+							(ngModelChange)="cambiarEstado(reserva.ID_reserva, $event)"
+						>
+							@for (estado of estados; track estado) {
+								<option [value]="estado">{{ estado }}</option>
+							}
+						</select>
+					</label>
+				</header>
+
+				<dl class="agent-reservation-entry__details">
+					<div>
+						<dt>Cliente</dt>
+						<dd>{{ reserva.nombre_cliente }}</dd>
+					</div>
+					<div>
+						<dt>Entradas</dt>
+						<dd>{{ reserva.cantidad_entradas }}</dd>
+					</div>
+					<div>
+						<dt>Solicitud enviada</dt>
+						<dd>{{ reserva.fecha_solicitud | date: 'dd/MM/yyyy' }}</dd>
+					</div>
+				</dl>
+			</article>
+		} @empty {
+			<p class="agent-reservations-page__empty">No hay solicitudes de reserva.</p>
+		}
+	</section>
+</main>

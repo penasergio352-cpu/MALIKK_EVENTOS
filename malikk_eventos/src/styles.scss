@@ -1,0 +1,28 @@
+:root {
+	--ink: #0b0d12;
+	--panel: #12151d;
+	--panel-raised: #1b202b;
+	--coral: #ff5672;
+	--amber: #ffc45e;
+	--mint: var(--coral);
+	--aqua: var(--amber);
+	--ice: #f2f4f7;
+	--muted: #a5aab5;
+	--line: rgba(255, 86, 114, 0.22);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-width: 320px;
+	margin: 0;
+	background: var(--ink);
+	color: var(--ice);
+	font-family: 'DM Sans', sans-serif;
+}

@@ -1,0 +1,39 @@
+<app-navbar />
+<section id="reservas">
+  <h2>Reservas</h2>
+  <form action="#" method="get">
+    <p>
+      <label for="nombre">Nombre completo:</label>
+      <input id="nombre" name="nombre" type="text" required>
+    </p>
+
+    <p>
+      <label for="correo">Correo electrónico:</label>
+      <input id="correo" name="correo" type="email" required>
+    </p>
+
+    <p>
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" name="categoria" required>
+        <option value="">Selecciona una categoría</option>
+        <option value="regueton">Reguetón</option>
+        <option value="electronica">Electrónica</option>
+      </select>
+    </p>
+
+    <p>
+      <label for="evento">Evento:</label>
+      <select id="evento" name="evento" required>
+        <option value="">Selecciona un evento</option>
+        <option value="shimza">SHIMZA DJ</option>
+        <option value="carlcox">CARL COX</option>
+        <option value="dominio">DOMINIO</option>
+        <option value="harvie">HARVIE</option>
+        <option value="jonz">JONZ</option>
+        <option value="nengo">ÑENGO</option>
+      </select>
+    </p>
+
+    <button type="submit">Enviar reserva</button>
+  </form>
+</section>
