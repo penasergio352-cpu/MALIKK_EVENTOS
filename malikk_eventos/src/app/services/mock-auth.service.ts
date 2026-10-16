@@ -29,7 +29,7 @@ export class MockAuthService {
   };
   private readonly clienteDemo = {
     nombre: 'sergio p',
-    email: 'sergio@gmail.com',
+    email: 'sergiocliente@gmail.com',
     telefono: '3207882543',
     password: '12345678',
   };
