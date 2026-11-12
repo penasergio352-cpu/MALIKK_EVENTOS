@@ -99,7 +99,7 @@
 	</details>
 
 	<section class="agent-events-page__grid" aria-label="Eventos registrados">
-		@for (evento of eventos; track evento.ID_evento) {
+		@for (evento of eventos(); track evento.ID_evento) {
 			<app-evento-card [evento]="evento" />
 		}
 	</section>

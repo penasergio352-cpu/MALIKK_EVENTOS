@@ -1,12 +1,27 @@
 <main class="events-page">
+	<video
+		class="events-page__background"
+		autoplay
+		muted
+		loop
+		playsinline
+		preload="metadata"
+		poster="/imagenes/fondo.jpg"
+		aria-hidden="true"
+	>
+		<source src="/imagenes/0417.mp4" type="video/mp4">
+	</video>
+	<div class="events-page__overlay" aria-hidden="true"></div>
+
 	<header class="events-page__header">
 		<p class="events-page__eyebrow">MALIKK EVENTOS</p>
 		<h1>Eventos disponibles</h1>
 		<p>Explora los eventos y elige al que quieres asistir.</p>
+		<a class="events-page__physics-link" routerLink="/fisica-2">fisica_2</a>
 	</header>
 
 	<section class="events-page__grid" aria-label="Lista de eventos disponibles">
-		@for (evento of eventos; track evento.ID_evento) {
+		@for (evento of eventos(); track evento.ID_evento) {
 			<app-evento-card
 				[evento]="evento"
 				[mostrarAccionReserva]="true"

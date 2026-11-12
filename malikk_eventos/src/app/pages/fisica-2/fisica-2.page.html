@@ -1,0 +1,18 @@
+<main class="physics-page">
+  <header class="physics-page__header">
+    <p class="physics-page__eyebrow">MALIKK EVENTOS</p>
+    <h1>Física 2</h1>
+    <p>Esta es una página de prueba para explorar contenido nuevo.</p>
+  </header>
+
+  <section class="physics-page__grid" aria-label="Contenido de ejemplo">
+    @for (tarjeta of [1, 2, 3]; track tarjeta) {
+      <article class="physics-card">
+        <h2>Tarjeta {{ tarjeta }}</h2>
+        <p>Contenido de ejemplo</p>
+      </article>
+    }
+  </section>
+
+  <a class="physics-page__back" routerLink="/cliente/cliente-evento">Volver a eventos</a>
+</main>

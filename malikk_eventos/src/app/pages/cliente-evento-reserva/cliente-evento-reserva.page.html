@@ -1,5 +1,5 @@
 <main class="event-reservation-page">
-	@if (evento) {
+	@if (evento(); as eventoActual) {
 		<header class="event-reservation-page__header">
 			<a routerLink="/cliente/cliente-evento">Volver a eventos</a>
 			<p class="event-reservation-page__eyebrow">RESUMEN DEL EVENTO</p>
@@ -7,7 +7,7 @@
 			<p>Revisa los datos del evento antes de continuar.</p>
 		</header>
 
-		<app-evento-card [evento]="evento" />
+		<app-evento-card [evento]="eventoActual" />
 
 		<section class="reservation-confirmation" aria-labelledby="reservation-title">
 			<h2 id="reservation-title">Confirmar reserva</h2>
@@ -16,7 +16,7 @@
 				id="ticket-quantity"
 				type="number"
 				min="1"
-				[max]="evento.capacidad_total"
+				[max]="eventoActual.capacidad_total"
 				[value]="cantidadEntradas"
 				(change)="actualizarCantidad($event)"
 			>

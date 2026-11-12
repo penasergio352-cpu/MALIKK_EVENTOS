@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  min-height: 100%;
+  color: var(--ice);
+}
+
+.physics-page {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.physics-page__header {
+  margin-bottom: 2rem;
+}
+
+.physics-page__eyebrow {
+  color: var(--mint);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+h1,
+h2 {
+  color: var(--ice);
+  font-family: 'Orbitron', sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.physics-page__header > p:last-child,
+.physics-card p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.physics-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+}
+
+.physics-card {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: linear-gradient(120deg, var(--panel-raised), var(--panel));
+}
+
+.physics-card h2 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.physics-page__back {
+  min-height: 42px;
+  margin-top: 2rem;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 86, 114, 0.6);
+  background: linear-gradient(105deg, var(--mint), var(--aqua));
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.physics-page__back:hover,
+.physics-page__back:focus-visible {
+  background: var(--ice);
+}

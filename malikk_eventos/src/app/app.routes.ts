@@ -42,5 +42,10 @@ export const routes: Routes = [
   },
   { path: 'eventos', component: EventosPage },
   { path: 'reservas', component: ReservasPage },
+  {
+    path: 'fisica-2',
+    loadComponent: () =>
+      import('./pages/fisica-2/fisica-2.page').then((module) => module.Fisica2Page),
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];

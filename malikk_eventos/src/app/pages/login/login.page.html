@@ -1,21 +1,43 @@
-<section>
-  <div>
-    <h2>Bienvenido a Malikk, registrate o inicia sesion para disfrutar de nuestros Servicios&amp;Eventos</h2>
+<section class="login-layout">
+  <video
+    class="login-background"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="/imagenes/fondo.jpg"
+    aria-hidden="true"
+  >
+    <source src="/imagenes/0417.mp4" type="video/mp4">
+  </video>
+  <div class="login-overlay" aria-hidden="true"></div>
+
+  <div class="login-welcome">
+    <p class="login-eyebrow">MALIKK <span>·</span> EVENTOS EN VIVO</p>
+    <h1>La noche <span>empieza aquí.</span></h1>
+    <p class="login-welcome__copy">
+      Inicia sesión y encuentra tu próximo evento favorito.
+    </p>
   </div>
 
-
-  <div>
+  <div class="login-card">
+    <p class="login-card__eyebrow">BIENVENIDO DE NUEVO</p>
     <h2>Iniciar sesión</h2>
+    <p class="login-card__copy">Ingresa tus datos para continuar.</p>
     <form #loginForm="ngForm" (ngSubmit)="iniciarSesion(loginForm)">
       @if (mensajeRegistro) {
         <p class="form-message form-message--success" role="status">Cuenta creada. Ya puedes iniciar sesión.</p>
       }
-      <input type="email" name="login_email" placeholder="Correo" aria-label="Correo" [(ngModel)]="formulario.email" required autocomplete="email">
-      <input type="password" name="login_password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="formulario.password" required autocomplete="current-password">
+      <label for="login-email">Correo electrónico</label>
+      <input id="login-email" type="email" name="login_email" placeholder="nombre@correo.com" [(ngModel)]="formulario.email" required autocomplete="email">
+      <label for="login-password">Contraseña</label>
+      <input id="login-password" type="password" name="login_password" placeholder="Ingresa tu contraseña" [(ngModel)]="formulario.password" required autocomplete="current-password">
       @if (mensajeError) {
         <p class="form-message" role="alert">{{ mensajeError }}</p>
       }
       <button type="submit">Iniciar sesión</button>
     </form>
+    <p class="login-card__footer">Tu próxima experiencia está a un paso.</p>
   </div>
 </section>

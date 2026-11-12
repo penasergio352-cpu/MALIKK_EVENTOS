@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EventoCardComponent } from '../../components/evento-card/evento-card.component';
 import { Evento } from '../../models/evento.model';
-import { MockEventosService } from '../../services/mock-eventos.service';
+import { EventosService } from '../../services/eventos.service';
 
 interface EventoFormValues {
   nombre: string;
@@ -26,15 +27,22 @@ interface EventoFormValues {
   styleUrl: './agente-eventos.page.scss',
 })
 export class AgenteEventosPage {
-  eventos: Evento[];
+  private readonly eventosService = inject(EventosService);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly eventos = signal<Evento[]>([]);
   eventoForm: EventoFormValues = this.formularioVacio();
   mensaje = '';
   mensajeImagen = '';
   nombreImagen = '';
   imagenArrastrada = false;
 
-  constructor(private readonly eventosService: MockEventosService) {
-    this.eventos = eventosService.obtenerEventos();
+  constructor() {
+    this.eventosService.obtenerEventos().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (eventos) => this.eventos.set(eventos),
+      error: () => {
+        this.mensaje = 'No se pudieron cargar los eventos.';
+      },
+    });
   }
 
   registrarEvento(form: NgForm): void {
@@ -59,14 +67,19 @@ export class AgenteEventosPage {
       precio_base: this.eventoForm.precio_base!,
       capacidad_total: this.eventoForm.capacidad_total!,
       observaciones: this.eventoForm.observaciones.trim(),
+    }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (evento) => {
+        this.eventos.update((eventos) => [...eventos, evento]);
+        this.mensaje = 'Evento registrado.';
+        form.resetForm();
+        this.eventoForm = this.formularioVacio();
+        this.mensajeImagen = '';
+        this.nombreImagen = '';
+      },
+      error: () => {
+        this.mensaje = 'No se pudo registrar el evento.';
+      },
     });
-
-    this.eventos = this.eventosService.obtenerEventos();
-    this.mensaje = 'Evento registrado.';
-    form.resetForm();
-    this.eventoForm = this.formularioVacio();
-    this.mensajeImagen = '';
-    this.nombreImagen = '';
   }
 
   seleccionarImagen(event: Event): void {

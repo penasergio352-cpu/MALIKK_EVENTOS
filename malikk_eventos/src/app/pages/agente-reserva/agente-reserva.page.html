@@ -6,7 +6,7 @@
 	</header>
 
 	<section class="agent-reservations-page__list" aria-label="Todas las solicitudes de reserva">
-		@for (reserva of reservas; track reserva.ID_reserva) {
+		@for (reserva of reservas(); track reserva.ID_reserva) {
 			<article class="agent-reservation-entry">
 				<header class="agent-reservation-entry__header">
 					<div>

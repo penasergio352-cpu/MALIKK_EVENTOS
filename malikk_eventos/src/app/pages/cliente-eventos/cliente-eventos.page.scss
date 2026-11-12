@@ -5,12 +5,44 @@
 }
 
 .events-page {
-	width: min(100%, 88rem);
+	position: relative;
+	isolation: isolate;
+	min-height: calc(100vh - 82px);
+	overflow: hidden;
+	width: 100%;
 	margin-inline: auto;
 	padding: clamp(1.5rem, 4vw, 3rem);
 }
 
+.events-page__background,
+.events-page__overlay {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.events-page__background {
+	z-index: -2;
+	object-fit: cover;
+	opacity: 0.3;
+}
+
+.events-page__overlay {
+	z-index: -1;
+	background: linear-gradient(
+		110deg,
+		rgba(8, 10, 15, 0.55),
+		rgba(8, 10, 15, 0.8)
+	);
+}
+
 .events-page__header {
+	position: relative;
+	z-index: 1;
+	width: min(100%, 82rem);
+	margin-inline: auto;
 	margin-bottom: 2rem;
 }
 
@@ -36,7 +68,33 @@ h1 {
 	line-height: 1.5;
 }
 
+.events-page__physics-link {
+	min-height: 42px;
+	margin-top: 1rem;
+	padding: 0 17px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid rgba(255, 86, 114, 0.6);
+	background: linear-gradient(105deg, var(--mint), var(--aqua));
+	color: var(--ink);
+	font-size: 0.76rem;
+	font-weight: 800;
+	text-decoration: none;
+	transition: background 180ms ease, box-shadow 180ms ease, color 180ms ease;
+}
+
+.events-page__physics-link:hover,
+.events-page__physics-link:focus-visible {
+	background: var(--ice);
+	box-shadow: 0 0 22px rgba(255, 196, 94, 0.28);
+}
+
 .events-page__grid {
+	position: relative;
+	z-index: 1;
+	width: min(100%, 82rem);
+	margin-inline: auto;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
 	gap: 1rem;

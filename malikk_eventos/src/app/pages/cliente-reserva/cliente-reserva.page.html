@@ -6,7 +6,7 @@
 	</header>
 
 	<section class="customer-reservations-page__list" aria-label="Mis reservas">
-		@for (reserva of reservas; track reserva.ID_reserva) {
+		@for (reserva of reservas(); track reserva.ID_reserva) {
 			<article class="reservation-entry">
 				<header class="reservation-entry__header">
 					<div>
