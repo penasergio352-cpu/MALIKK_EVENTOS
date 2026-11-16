@@ -1,0 +1,127 @@
+<main class="report-page">
+  <header class="report-page__header">
+    <a routerLink="/admin">Volver a administración</a>
+    <p>ADMINISTRACIÓN / REPORTES</p>
+    <h1>Resumen del sistema</h1>
+  </header>
+  @if (mensaje) { <p class="report-message" role="alert">{{ mensaje }}</p> }
+  @if (reporte; as datos) {
+    <section class="report-grid">
+      <article class="report-card"><h2>Clientes</h2><strong>{{ datos.totales.clientes }}</strong></article>
+      <article class="report-card"><h2>Agentes</h2><strong>{{ datos.totales.agentes }}</strong></article>
+      <article class="report-card"><h2>Administradores</h2><strong>{{ datos.totales.administradores }}</strong></article>
+      <article class="report-card"><h2>Reservas registradas</h2><strong>{{ datos.totales.reservas }}</strong></article>
+      <article class="report-card"><h2>Eventos registrados</h2><strong>{{ datos.totales.eventos }}</strong></article>
+    </section>
+    <section class="report-grid">
+      <article class="report-card">
+        <h2>Eventos</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Evento</th><th>Capacidad</th><th>Entradas solicitadas</th><th>Reservas</th></tr></thead>
+            <tbody>
+              @for (evento of datos.eventos; track evento.ID_evento) {
+                <tr><td>{{ evento.nombre }}</td><td>{{ evento.capacidad_total }}</td><td>{{ evento.entradas_solicitadas }}</td><td>{{ evento.cantidad_reservas }}</td></tr>
+              } @empty { <tr><td colspan="4">No hay eventos registrados.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Reservas por estado</h2>
+        <ul>@for (fila of datos.reservasPorEstado; track fila.estado) { <li><span>{{ fila.estado }}</span><strong>{{ fila.cantidad }}</strong></li> } @empty { <li>No hay reservas.</li> }</ul>
+      </article>
+      <article class="report-card">
+        <h2>Usuarios por perfil</h2>
+        <ul>@for (fila of datos.usuariosPorPerfil; track fila.tipo_usuario) { <li><span>{{ fila.tipo_usuario }}</span><strong>{{ fila.cantidad }}</strong></li> } @empty { <li>No hay usuarios.</li> }</ul>
+      </article>
+      <article class="report-card">
+        <h2>Eventos por ubicación</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Evento</th><th>País</th><th>Departamento</th><th>Ciudad</th></tr></thead>
+            <tbody>
+              @for (evento of datos.eventosPorUbicacion; track evento.ID_evento) {
+                <tr><td>{{ evento.evento }}</td><td>{{ evento.pais }}</td><td>{{ evento.departamento }}</td><td>{{ evento.ciudad }}</td></tr>
+              } @empty { <tr><td colspan="4">No hay eventos con ubicación.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Reservas por evento y mes (2026)</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Evento</th><th>Mes</th><th>Reservas</th></tr></thead>
+            <tbody>
+              @for (fila of datos.reservasPorEventoMes; track fila.ID_evento + fila.mes) {
+                <tr><td>{{ fila.evento }}</td><td>{{ fila.mes | slice: 0:7 }}</td><td>{{ fila.cantidad_reservas }}</td></tr>
+              } @empty { <tr><td colspan="3">No hay reservas en 2026.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Eventos creados por agente y ciudad</h2>
+        <ul>
+          @for (fila of datos.eventosPorAgenteCiudad; track fila.ID_agente + fila.ciudad) {
+            <li><span>{{ fila.agente }} · {{ fila.ciudad }}</span><strong>{{ fila.cantidad_eventos }}</strong></li>
+          } @empty { <li>No hay eventos registrados.</li> }
+        </ul>
+      </article>
+      <article class="report-card">
+        <h2>Ingresos totales por mes (2026)</h2>
+        <ul>
+          @for (fila of datos.ingresosPorMes2026; track fila.mes) {
+            <li><span>{{ fila.mes | slice: 0:7 }}</span><strong>{{ fila.ingresos_totales }}</strong></li>
+          } @empty { <li>No hay ingresos aprobados registrados en 2026.</li> }
+        </ul>
+      </article>
+      <article class="report-card">
+        <h2>Historial de reservas por cliente</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Cliente</th><th>Evento</th><th>Fecha</th><th>Estado</th><th>Entradas</th><th>Total</th></tr></thead>
+            <tbody>
+              @for (fila of datos.historialReservas; track fila.ID_reserva) {
+                <tr><td>{{ fila.cliente }}</td><td>{{ fila.evento }}</td><td>{{ fila.fecha_solicitud }}</td><td>{{ fila.estado }}</td><td>{{ fila.cantidad_entradas }}</td><td>{{ fila.valor_total }}</td></tr>
+              } @empty { <tr><td colspan="6">No hay reservas registradas.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Reservas canceladas</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Cliente</th><th>Evento</th><th>Fecha</th><th>Entradas</th><th>Causa</th></tr></thead>
+            <tbody>
+              @for (fila of datos.reservasCanceladas; track fila.ID_reserva) {
+                <tr><td>{{ fila.cliente }}</td><td>{{ fila.evento }}</td><td>{{ fila.fecha_solicitud }}</td><td>{{ fila.cantidad_entradas }}</td><td>{{ fila.causa_cancelacion }}</td></tr>
+              } @empty { <tr><td colspan="5">No hay reservas canceladas.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Eventos cancelados</h2>
+        <div class="report-table-wrap">
+          <table>
+            <thead><tr><th>Evento</th><th>Ciudad</th><th>Fecha</th><th>Causa</th></tr></thead>
+            <tbody>
+              @for (fila of datos.eventosCancelados; track fila.ID_evento) {
+                <tr><td>{{ fila.evento }}</td><td>{{ fila.ciudad }}</td><td>{{ fila.fecha_inicio }}</td><td>{{ fila.causa_cancelacion }}</td></tr>
+              } @empty { <tr><td colspan="4">No hay eventos cancelados.</td></tr> }
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="report-card">
+        <h2>Reportes de ingresos</h2>
+        <p>La fórmula de ingresos por agente y cliente está pendiente de confirmación con el docente.</p>
+      </article>
+    </section>
+  } @else if (!mensaje) {
+    <p class="report-message" role="status">Cargando reporte…</p>
+  }
+</main>

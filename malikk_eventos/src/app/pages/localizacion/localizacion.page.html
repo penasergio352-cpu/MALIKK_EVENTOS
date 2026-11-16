@@ -1,0 +1,62 @@
+<main class="catalog-page">
+  <header class="catalog-page__header">
+    <a routerLink="/admin">Volver a administración</a>
+    <p class="catalog-page__eyebrow">MÓDULO DE LOCALIZACIÓN</p>
+    <h1>Países, departamentos y ciudades</h1>
+    <p>Administra los registros de ubicación que se usan en los eventos.</p>
+  </header>
+  @if (mensaje) {
+    <p class="catalog-message" role="status">{{ mensaje }}</p>
+  }
+  <section class="catalog-grid">
+    <article class="catalog-card">
+      <h2>Países</h2>
+      <form #paisForm="ngForm" (ngSubmit)="guardarPais(paisForm)">
+        <label for="pais-nombre">Nombre</label>
+        <input id="pais-nombre" name="paisNombre" [(ngModel)]="pais.nombre" required maxlength="100">
+        <button type="submit">{{ editandoPais === null ? 'Agregar país' : 'Guardar país' }}</button>
+      </form>
+      <ul>
+        @for (item of paises; track item.ID_pais) {
+          <li><span>{{ item.nombre }}</span><div><button type="button" (click)="editarPais(item)">Editar</button><button class="danger" type="button" (click)="eliminarPais(item.ID_pais)">Eliminar</button></div></li>
+        } @empty { <li>No hay países.</li> }
+      </ul>
+    </article>
+    <article class="catalog-card">
+      <h2>Departamentos</h2>
+      <form #departamentoForm="ngForm" (ngSubmit)="guardarDepartamento(departamentoForm)">
+        <label for="departamento-nombre">Nombre</label>
+        <input id="departamento-nombre" name="departamentoNombre" [(ngModel)]="departamento.nombre" required maxlength="100">
+        <label for="departamento-pais">País</label>
+        <select id="departamento-pais" name="departamentoPais" [(ngModel)]="departamento.ID_pais" required>
+          <option [ngValue]="null">Selecciona un país</option>
+          @for (item of paises; track item.ID_pais) { <option [ngValue]="item.ID_pais">{{ item.nombre }}</option> }
+        </select>
+        <button type="submit">{{ editandoDepartamento === null ? 'Agregar departamento' : 'Guardar departamento' }}</button>
+      </form>
+      <ul>
+        @for (item of departamentos; track item.ID_departamento) {
+          <li><span>{{ item.nombre }} · {{ nombrePais(item.ID_pais) }}</span><div><button type="button" (click)="editarDepartamento(item)">Editar</button><button class="danger" type="button" (click)="eliminarDepartamento(item.ID_departamento)">Eliminar</button></div></li>
+        } @empty { <li>No hay departamentos.</li> }
+      </ul>
+    </article>
+    <article class="catalog-card">
+      <h2>Ciudades</h2>
+      <form #ciudadForm="ngForm" (ngSubmit)="guardarCiudad(ciudadForm)">
+        <label for="ciudad-nombre">Nombre</label>
+        <input id="ciudad-nombre" name="ciudadNombre" [(ngModel)]="ciudad.nombre" required maxlength="100">
+        <label for="ciudad-departamento">Departamento</label>
+        <select id="ciudad-departamento" name="ciudadDepartamento" [(ngModel)]="ciudad.ID_departamento" required>
+          <option [ngValue]="null">Selecciona un departamento</option>
+          @for (item of departamentos; track item.ID_departamento) { <option [ngValue]="item.ID_departamento">{{ item.nombre }}</option> }
+        </select>
+        <button type="submit">{{ editandoCiudad === null ? 'Agregar ciudad' : 'Guardar ciudad' }}</button>
+      </form>
+      <ul>
+        @for (item of ciudades; track item.ID_ciudad) {
+          <li><span>{{ item.nombre }} · {{ nombreDepartamento(item.ID_departamento) }}</span><div><button type="button" (click)="editarCiudad(item)">Editar</button><button class="danger" type="button" (click)="eliminarCiudad(item.ID_ciudad)">Eliminar</button></div></li>
+        } @empty { <li>No hay ciudades.</li> }
+      </ul>
+    </article>
+  </section>
+</main>

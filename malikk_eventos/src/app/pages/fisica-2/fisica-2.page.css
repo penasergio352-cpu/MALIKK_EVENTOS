@@ -55,6 +55,14 @@ h1 {
   font-size: 1rem;
 }
 
+.physics-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
 .physics-page__back {
   min-height: 42px;
   margin-top: 2rem;

@@ -11,7 +11,7 @@
 				<header class="agent-reservation-entry__header">
 					<div>
 						<p class="agent-reservation-entry__id">RESERVA #{{ reserva.ID_reserva }}</p>
-						<h2>{{ reserva.nombre_evento }}</h2>
+						<h2>{{ reserva.nombre_evento ?? 'Evento' }}</h2>
 					</div>
 					<label class="agent-reservation-entry__status-control">
 						<span>Estado</span>
@@ -47,4 +47,5 @@
 			<p class="agent-reservations-page__empty">No hay solicitudes de reserva.</p>
 		}
 	</section>
+	@if (mensaje) { <p role="status">{{ mensaje }}</p> }
 </main>

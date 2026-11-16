@@ -10,11 +10,24 @@ import { RegisterPage } from './pages/register/register.page';
 import { ClienteReservaPage } from './pages/cliente-reserva/cliente-reserva.page';
 import { ClienteEventoReservaPage } from './pages/cliente-evento-reserva/cliente-evento-reserva.page';
 import { EventosPage } from './pages/eventos/eventos.page';
-import { ReservasPage } from './pages/reservas/reservas.page';
 import { perfilGuard } from './services/perfil.guard';
+import { LocalizacionPage } from './pages/localizacion/localizacion.page';
+import { ReportesPage } from './pages/reportes/reportes.page';
 
 export const routes: Routes = [
   { path: 'admin', component: AdminPage },
+  {
+    path: 'admin/localizacion',
+    component: LocalizacionPage,
+    canActivate: [perfilGuard],
+    data: { perfil: 'Administrador' },
+  },
+  {
+    path: 'admin/reportes',
+    component: ReportesPage,
+    canActivate: [perfilGuard],
+    data: { perfil: 'Administrador' },
+  },
   {
     path: 'agente',
     component: AgentePage,
@@ -41,7 +54,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'eventos', component: EventosPage },
-  { path: 'reservas', component: ReservasPage },
+  { path: 'reservas', redirectTo: '/cliente/cliente-reserva', pathMatch: 'full' },
   {
     path: 'fisica-2',
     loadComponent: () =>

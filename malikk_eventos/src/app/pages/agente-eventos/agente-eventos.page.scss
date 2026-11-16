@@ -42,6 +42,33 @@ h1 {
 	gap: 1rem;
 }
 
+.agent-event-entry {
+	display: grid;
+	align-content: start;
+	gap: 0.6rem;
+}
+
+.agent-event-entry__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.agent-event-entry__actions button {
+	padding: 0.55rem 0.8rem;
+	border: 1px solid var(--mint);
+	border-radius: 4px;
+	background: transparent;
+	color: var(--mint);
+	cursor: pointer;
+	font: inherit;
+}
+
+.agent-event-entry__actions .danger {
+	border-color: #ff8f8f;
+	color: #ff8f8f;
+}
+
 .event-form {
 	margin-bottom: 2rem;
 	border: 1px solid var(--line);

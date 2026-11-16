@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { EventoCardComponent } from '../../components/evento-card/evento-card.component';
+import { Evento } from '../../models/evento.model';
 import { EventosService } from '../../services/eventos.service';
 
 @Component({
@@ -13,7 +14,16 @@ import { EventosService } from '../../services/eventos.service';
 export class ClienteEventosPage {
   private readonly eventosService = inject(EventosService);
   private readonly router = inject(Router);
-  readonly eventos = toSignal(this.eventosService.obtenerEventos(), { initialValue: [] });
+  private readonly destroyRef = inject(DestroyRef);
+  readonly eventos = signal<Evento[]>([]);
+  mensaje = '';
+
+  constructor() {
+    this.eventosService.obtenerEventos().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: (eventos) => this.eventos.set(eventos),
+      error: () => (this.mensaje = 'No se pudieron cargar los eventos. Intenta de nuevo más tarde.'),
+    });
+  }
 
   verReserva(eventoId: number): void {
     void this.router.navigate(['/cliente/cliente-evento-reserva'], {

@@ -12,4 +12,7 @@ export interface Evento {
   observaciones: string;
   fecha_fin: Date;
   hora_inicio: number;
+  ID_ciudad?: number | null;
+  ID_estado_evento?: number;
+  causa_cancelacion?: string | null;
 }

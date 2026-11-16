@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MockAuthService } from '../../services/mock-auth.service';
+import { Ciudad } from '../../models/localizacion.model';
+import { AuthService } from '../../services/auth.service';
+import { LocalizacionService } from '../../services/localizacion.service';
+import { mensajeErrorApi } from '../../services/api-error';
 
 @Component({
   selector: 'app-register.page',
@@ -9,20 +12,31 @@ import { MockAuthService } from '../../services/mock-auth.service';
   templateUrl: './register.page.html',
   styleUrl: './register.page.scss',
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit {
+  private readonly localizacionService = inject(LocalizacionService);
+  ciudades: Ciudad[] = [];
   readonly formulario = {
     nombre: '',
     email: '',
     telefono: '',
+    ID_ciudad: null as number | null,
     password: '',
     confirmarPassword: '',
   };
   mensaje = '';
+  mensajeCiudades = '';
 
   constructor(
-    private readonly authService: MockAuthService,
+    private readonly authService: AuthService,
     private readonly router: Router,
   ) {}
+
+  ngOnInit(): void {
+    this.localizacionService.obtenerCiudades().subscribe({
+      next: (ciudades) => (this.ciudades = ciudades),
+      error: () => (this.mensajeCiudades = 'No se pudieron cargar las ciudades.'),
+    });
+  }
 
   async registrar(form: NgForm): Promise<void> {
     this.mensaje = '';
@@ -40,6 +54,7 @@ export class RegisterPage {
         nombre: this.formulario.nombre,
         email: this.formulario.email,
         telefono: this.formulario.telefono,
+        ID_ciudad: this.formulario.ID_ciudad!,
         password: this.formulario.password,
       });
 
@@ -47,7 +62,7 @@ export class RegisterPage {
         queryParams: { registrado: '1', email: this.formulario.email.trim() },
       });
     } catch (error) {
-      this.mensaje = error instanceof Error ? error.message : 'No se pudo crear la cuenta.';
+      this.mensaje = mensajeErrorApi(error, 'No se pudo crear la cuenta.');
     }
   }
 }

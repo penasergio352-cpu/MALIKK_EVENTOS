@@ -5,9 +5,9 @@
 		<p>Consulta los eventos disponibles en la plataforma.</p>
 	</header>
 
-	<details class="event-form">
-		<summary>Registrar evento</summary>
-		<form #formularioEvento="ngForm" (ngSubmit)="registrarEvento(formularioEvento)">
+	<details class="event-form" [open]="eventoEditando !== null">
+		<summary>{{ eventoEditando === null ? 'Registrar evento' : 'Editar evento' }}</summary>
+		<form #formularioEvento="ngForm" (ngSubmit)="guardarEvento(formularioEvento)">
 			<label>
 				<span>Nombre del evento</span>
 				<input type="text" name="nombre" [(ngModel)]="eventoForm.nombre" required maxlength="100">
@@ -15,6 +15,15 @@
 			<label>
 				<span>Teatro o recinto</span>
 				<input type="text" name="teatro" [(ngModel)]="eventoForm.teatro" required maxlength="100">
+			</label>
+			<label>
+				<span>Ciudad</span>
+				<select name="ID_ciudad" [(ngModel)]="eventoForm.ID_ciudad" required>
+					<option [ngValue]="null" disabled>Selecciona una ciudad</option>
+					@for (ciudad of ciudades(); track ciudad.ID_ciudad) {
+						<option [ngValue]="ciudad.ID_ciudad">{{ ciudad.nombre }}</option>
+					}
+				</select>
 			</label>
 			<div class="event-image-field event-form__wide">
 				<span class="event-image-field__label">Imagen del evento</span>
@@ -92,7 +101,10 @@
 				<textarea name="observaciones" [(ngModel)]="eventoForm.observaciones" maxlength="500" rows="2"></textarea>
 			</label>
 			<div class="event-form__actions">
-				<button type="submit">Guardar evento</button>
+				<button type="submit">{{ eventoEditando === null ? 'Guardar evento' : 'Guardar cambios' }}</button>
+				@if (eventoEditando !== null) {
+					<button type="button" class="button-secondary" (click)="limpiarFormulario(formularioEvento)">Cancelar</button>
+				}
 				<p role="status" aria-live="polite">{{ mensaje }}</p>
 			</div>
 		</form>
@@ -100,7 +112,13 @@
 
 	<section class="agent-events-page__grid" aria-label="Eventos registrados">
 		@for (evento of eventos(); track evento.ID_evento) {
-			<app-evento-card [evento]="evento" />
+			<article class="agent-event-entry">
+				<app-evento-card [evento]="evento" />
+				<div class="agent-event-entry__actions">
+					<button type="button" (click)="editarEvento(evento)">Editar</button>
+					<button type="button" class="danger" (click)="eliminarEvento(evento)">Cancelar evento</button>
+				</div>
+			</article>
 		}
 	</section>
 </main>

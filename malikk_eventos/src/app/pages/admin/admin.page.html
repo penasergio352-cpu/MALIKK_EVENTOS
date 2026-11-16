@@ -1,37 +1,98 @@
 <main class="admin-page">
-	@if (!autenticado) {
-		<section class="admin-panel">
-			<p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
-			<h1>Acceso de administrador</h1>
-			<form #loginAdmin="ngForm" (ngSubmit)="iniciarSesion(loginAdmin)">
-				<input type="email" name="admin_email" placeholder="Correo administrador" aria-label="Correo administrador" [(ngModel)]="credenciales.email" required autocomplete="username">
-				<input type="password" name="admin_password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="credenciales.password" required autocomplete="current-password">
-				@if (mensaje) {
-					<p class="form-message" role="alert">{{ mensaje }}</p>
-				}
-				<button type="submit">Iniciar sesión</button>
-			</form>
-		</section>
-	} @else {
-		<section class="admin-panel">
-			<div class="panel-heading">
-				<div>
-					<p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
-					<h1>Registrar agente</h1>
-				</div>
-				<button class="button-secondary" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
-			</div>
-			<form #agenteForm="ngForm" (ngSubmit)="registrarAgente(agenteForm)">
-				<input type="text" name="nombre" placeholder="Nombre completo" aria-label="Nombre completo" [(ngModel)]="agente.nombre" required>
-				<input type="email" name="email" placeholder="Correo" aria-label="Correo" [(ngModel)]="agente.email" required autocomplete="email">
-				<input type="tel" name="telefono" placeholder="Teléfono" aria-label="Teléfono" [(ngModel)]="agente.telefono" required>
-				<input type="password" name="password" placeholder="Contraseña inicial" aria-label="Contraseña inicial" [(ngModel)]="agente.password" required minlength="8" autocomplete="new-password">
-				<input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" aria-label="Confirmar contraseña" [(ngModel)]="agente.confirmarPassword" required minlength="8" autocomplete="new-password">
-				@if (mensaje) {
-					<p class="form-message" [class.form-message--success]="mensaje.startsWith('Agente registrado')" role="status">{{ mensaje }}</p>
-				}
-				<button type="submit">Crear cuenta de agente</button>
-			</form>
-		</section>
-	}
+  @if (!autenticado) {
+    <section class="admin-panel">
+      <p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
+      <h1>Acceso de administrador</h1>
+      <form #loginAdmin="ngForm" (ngSubmit)="iniciarSesion(loginAdmin)">
+        <input type="email" name="admin_email" placeholder="Correo administrador" aria-label="Correo administrador" [(ngModel)]="credenciales.email" required autocomplete="username">
+        <input type="password" name="admin_password" placeholder="Contraseña" aria-label="Contraseña" [(ngModel)]="credenciales.password" required autocomplete="current-password">
+        @if (mensaje) {
+          <p class="form-message" role="alert">{{ mensaje }}</p>
+        }
+        <button type="submit">Iniciar sesión</button>
+      </form>
+    </section>
+  } @else {
+    <section class="admin-panel admin-dashboard">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">MALIKK / ADMINISTRACIÓN</p>
+          <h1>Panel de administración</h1>
+        </div>
+        <button class="button-secondary" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+      </div>
+
+      <nav class="admin-links" aria-label="Herramientas de administración">
+        <a routerLink="/admin/localizacion">Países, departamentos y ciudades</a>
+        <a routerLink="/admin/reportes">Ver reportes</a>
+      </nav>
+
+      <section class="admin-section">
+        <h2>Registrar agente</h2>
+        <form #agenteForm="ngForm" (ngSubmit)="registrarAgente(agenteForm)">
+          <input type="text" name="nombre" placeholder="Nombre completo" aria-label="Nombre completo" [(ngModel)]="agente.nombre" required>
+          <input type="email" name="email" placeholder="Correo" aria-label="Correo" [(ngModel)]="agente.email" required autocomplete="email">
+          <input type="tel" name="telefono" placeholder="Teléfono" aria-label="Teléfono" [(ngModel)]="agente.telefono" required>
+          <label>
+            <span>Ciudad</span>
+            <select name="ID_ciudad" aria-label="Ciudad del agente" [(ngModel)]="agente.ID_ciudad" required>
+              <option [ngValue]="null" disabled>Selecciona una ciudad</option>
+              @for (ciudad of ciudades; track ciudad.ID_ciudad) {
+                <option [ngValue]="ciudad.ID_ciudad">{{ ciudad.nombre }}</option>
+              }
+            </select>
+          </label>
+          <input type="password" name="password" placeholder="Contraseña inicial" aria-label="Contraseña inicial" [(ngModel)]="agente.password" required minlength="8" autocomplete="new-password">
+          <input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" aria-label="Confirmar contraseña" [(ngModel)]="agente.confirmarPassword" required minlength="8" autocomplete="new-password">
+          <button type="submit">Crear cuenta de agente</button>
+        </form>
+      </section>
+
+      <section class="admin-section">
+        <h2>Usuarios</h2>
+        @if (mensaje) {
+          <p class="form-message" role="status">{{ mensaje }}</p>
+        }
+        <div class="admin-user-list">
+          @for (usuario of usuarios; track usuario.ID_usuario) {
+            <article class="admin-user">
+              <div class="admin-user__details">
+                @if (usuarioEditando === usuario.ID_usuario) {
+                  <input [name]="'nombre' + usuario.ID_usuario" aria-label="Nombre del usuario" [(ngModel)]="usuario.nombre" required>
+                  <input [name]="'email' + usuario.ID_usuario" type="email" aria-label="Correo del usuario" [(ngModel)]="usuario.email" required>
+                  <input [name]="'telefono' + usuario.ID_usuario" type="tel" aria-label="Teléfono del usuario" [(ngModel)]="usuario.telefono">
+                  <select [name]="'ciudad' + usuario.ID_usuario" aria-label="Ciudad del usuario" [(ngModel)]="usuario.ID_ciudad">
+                    <option [ngValue]="null">Sin ciudad asignada</option>
+                    @for (ciudad of ciudades; track ciudad.ID_ciudad) {
+                      <option [ngValue]="ciudad.ID_ciudad">{{ ciudad.nombre }}</option>
+                    }
+                  </select>
+                  <select [name]="'perfil' + usuario.ID_usuario" aria-label="Perfil del usuario" [(ngModel)]="usuario.tipo_usuario">
+                    @for (perfil of perfiles; track perfil) {
+                      <option [value]="perfil">{{ perfil }}</option>
+                    }
+                  </select>
+                } @else {
+                  <strong>{{ usuario.nombre }}</strong>
+                  <span>{{ usuario.email }} · {{ usuario.telefono }}</span>
+                  <span>Perfil: {{ usuario.tipo_usuario }}</span>
+                }
+              </div>
+              <div class="admin-user__actions">
+                @if (usuarioEditando === usuario.ID_usuario) {
+                  <button type="button" (click)="guardarUsuario(usuario)">Guardar</button>
+                  <button class="button-secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
+                } @else {
+                  <button type="button" (click)="editarUsuario(usuario)">Editar</button>
+                  <button class="button-danger" type="button" (click)="eliminarUsuario(usuario)">Eliminar</button>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p>No hay usuarios registrados.</p>
+          }
+        </div>
+      </section>
+    </section>
+  }
 </main>

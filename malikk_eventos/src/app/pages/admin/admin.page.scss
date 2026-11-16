@@ -10,7 +10,7 @@
 }
 
 .admin-page {
-	width: min(760px, calc(100% - 40px));
+	width: min(1100px, calc(100% - 40px));
 	margin: clamp(40px, 8vh, 88px) auto;
 }
 
@@ -40,6 +40,11 @@ h1 {
 	font: 700 clamp(1.4rem, 4vw, 2rem) 'Orbitron', sans-serif;
 }
 
+h2 {
+	margin: 0 0 18px;
+	font: 700 1.15rem 'Orbitron', sans-serif;
+}
+
 form {
 	display: grid;
 	gap: 14px;
@@ -53,6 +58,15 @@ input {
 	border-radius: 2px;
 	outline: none;
 	background: rgba(8, 10, 15, 0.82);
+	color: var(--ice);
+	font: inherit;
+}
+
+select {
+	min-height: 44px;
+	padding: 0 12px;
+	border: 1px solid var(--line);
+	background: var(--ink);
 	color: var(--ice);
 	font: inherit;
 }
@@ -93,9 +107,76 @@ button.button-secondary {
 	color: var(--mint);
 }
 
+.admin-dashboard {
+	display: grid;
+	gap: 30px;
+}
+
+.admin-section {
+	display: grid;
+	gap: 16px;
+	padding-top: 24px;
+	border-top: 1px solid var(--line);
+}
+
+.admin-links,
+.admin-user__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.admin-links a {
+	padding: 10px 14px;
+	border: 1px solid var(--line);
+	color: var(--mint);
+	text-decoration: none;
+}
+
+.admin-user-list {
+	display: grid;
+	gap: 10px;
+}
+
+.admin-user {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 16px;
+	padding: 16px;
+	border: 1px solid var(--line);
+	background: rgba(8, 10, 15, 0.55);
+}
+
+.admin-user__details {
+	display: grid;
+	gap: 8px;
+	color: var(--muted);
+	overflow-wrap: anywhere;
+}
+
+.admin-user__details strong {
+	color: var(--ice);
+}
+
+.admin-user__details input,
+.admin-user__details select {
+	width: 100%;
+}
+
+button.button-danger {
+	padding: 0 14px;
+	background: #a33b4c;
+	color: white;
+}
+
 @media (max-width: 520px) {
 	.panel-heading {
 		align-items: flex-start;
 		flex-direction: column;
+	}
+
+	.admin-user {
+		grid-template-columns: 1fr;
 	}
 }

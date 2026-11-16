@@ -1,4 +1,4 @@
-export type EstadoReserva = 'Pendiente' | 'Aprobada' | 'Rechazada';
+export type EstadoReserva = 'Pendiente' | 'Aprobada' | 'Rechazada' | 'Cancelada';
 
 export interface Reserva {
   ID_reserva: number;
@@ -8,4 +8,7 @@ export interface Reserva {
   cantidad_entradas: number;
   fecha_solicitud: Date;
   estado: EstadoReserva;
+  valor_total: number;
+  causa_cancelacion?: string | null;
+  nombre_evento?: string;
 }

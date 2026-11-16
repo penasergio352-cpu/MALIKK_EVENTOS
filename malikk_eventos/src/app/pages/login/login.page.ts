@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MockAuthService } from '../../services/mock-auth.service';
+import { AuthService } from '../../services/auth.service';
+import { mensajeErrorApi } from '../../services/api-error';
 
 @Component({
   selector: 'app-login.page',
@@ -16,7 +17,7 @@ export class LoginPage {
 
   constructor(
     route: ActivatedRoute,
-    private readonly authService: MockAuthService,
+    private readonly authService: AuthService,
     private readonly router: Router,
   ) {
     this.formulario = {
@@ -37,9 +38,14 @@ export class LoginPage {
         this.formulario.email,
         this.formulario.password,
       );
-      await this.router.navigate([perfil.tipo_usuario === 'Agente' ? '/agente' : '/cliente']);
+      const destino = {
+        Administrador: '/admin',
+        Agente: '/agente',
+        Cliente: '/cliente',
+      }[perfil.tipo_usuario];
+      await this.router.navigate([destino]);
     } catch (error) {
-      this.mensajeError = error instanceof Error ? error.message : 'No se pudo iniciar sesión.';
+      this.mensajeError = mensajeErrorApi(error, 'No se pudo iniciar sesión.');
     }
   }
 }

@@ -40,6 +40,16 @@ export class HttpEventosService extends EventosService {
       .pipe(map((respuesta) => this.convertirEvento(respuesta)));
   }
 
+  actualizarEvento(id: number, evento: Partial<Omit<Evento, 'ID_evento'>>): Observable<Evento> {
+    return this.http
+      .put<EventoResponse>(`${this.eventosUrl}/${id}`, evento)
+      .pipe(map((respuesta) => this.convertirEvento(respuesta)));
+  }
+
+  eliminarEvento(id: number, causa_cancelacion: string): Observable<void> {
+    return this.http.delete<void>(`${this.eventosUrl}/${id}`, { body: { causa_cancelacion } });
+  }
+
   private convertirEvento(evento: EventoResponse): Evento {
     return {
       ...evento,

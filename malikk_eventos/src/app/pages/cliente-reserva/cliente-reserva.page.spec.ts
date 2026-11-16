@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClienteReservaPage } from './cliente-reserva.page';
+import { provideAppTestConfig } from '../../testing/test-providers';
 
 describe('ClienteReservaPage', () => {
   let component: ClienteReservaPage;
@@ -8,7 +9,8 @@ describe('ClienteReservaPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ClienteReservaPage]
+      imports: [ClienteReservaPage],
+      providers: provideAppTestConfig(),
     })
     .compileComponents();
 

@@ -28,9 +28,20 @@
 						<dd>{{ reserva.fecha_solicitud | date: 'dd/MM/yyyy' }}</dd>
 					</div>
 				</dl>
+				@if (reserva.estado === 'Pendiente') {
+					<div class="reservation-entry__actions">
+						<label>
+							<span>Editar cantidad</span>
+							<input type="number" min="1" [name]="'cantidad' + reserva.ID_reserva" [ngModel]="reserva.cantidad_entradas" (ngModelChange)="reserva.cantidad_entradas = $event">
+						</label>
+						<button type="button" (click)="guardarCantidad(reserva)">Guardar cantidad</button>
+						<button class="danger" type="button" (click)="eliminarReserva(reserva)">Cancelar reserva</button>
+					</div>
+				}
 			</article>
 		} @empty {
 			<p class="customer-reservations-page__empty">No tienes reservas todavía.</p>
 		}
 	</section>
+	@if (mensaje) { <p role="status">{{ mensaje }}</p> }
 </main>

@@ -1,17 +1,59 @@
 <main class="physics-page">
   <header class="physics-page__header">
     <p class="physics-page__eyebrow">MALIKK EVENTOS</p>
-    <h1>Física 2</h1>
-    <p>Esta es una página de prueba para explorar contenido nuevo.</p>
+    <h1>Física II</h1>
+    <p>Información del curso, sus contenidos y material de apoyo.</p>
   </header>
 
-  <section class="physics-page__grid" aria-label="Contenido de ejemplo">
-    @for (tarjeta of [1, 2, 3]; track tarjeta) {
-      <article class="physics-card">
-        <h2>Tarjeta {{ tarjeta }}</h2>
-        <p>Contenido de ejemplo</p>
-      </article>
-    }
+  <section class="physics-page__grid" aria-label="Información de Física II">
+    <div class="physics-card">
+      <img
+        class="physics-card__image"
+        src="/imagenes/fisica.jpg"
+        alt="Infografía de Física II con contenidos, laboratorios y material de apoyo"
+      >
+      <h2>Docente</h2>
+      <p><strong>Nombre:</strong> Jenny Trejos Grain</p>
+      <p>
+        <strong>Correo:</strong>
+        <a href="mailto:Jtrejos@ucenva.edu.co">Jtrejos@ucenva.edu.co</a>
+      </p>
+    </div>
+
+    <div class="physics-card">
+      <h2>Contenido del curso</h2>
+      <ol type="I">
+        <li>Carga eléctrica, Fuerza Eléctrica y Campo Eléctrico</li>
+        <li>Ley de Gauss</li>
+        <li>Potencial eléctrico y diferencia de potencial</li>
+        <li>Capacitancia (Faradios – F)</li>
+        <li>Corriente y Resistencia (Ohm)</li>
+        <li>Circuitos de Corriente Continua (Serie, Paralelo y Mixto)</li>
+        <li>Campos Magnéticos</li>
+        <li>Fuentes de Campos Magnéticos</li>
+        <li>Ley de Faraday</li>
+        <li>Inductancia (Henrios – L)</li>
+      </ol>
+
+      <h3>Laboratorios e informes</h3>
+      <ul>
+        <li>Carga Eléctrica</li>
+        <li>Instrumentos de medida</li>
+        <li>Osciloscopio</li>
+        <li>Capacitancia y Circuitos</li>
+        <li>Potencial eléctrico</li>
+        <li>Corriente y resistencia</li>
+        <li>Circuitos</li>
+        <li>Magnetismo</li>
+      </ul>
+    </div>
+
+    <div class="physics-card">
+      <h2>Material de apoyo</h2>
+      <p><strong>Libro recomendado:</strong></p>
+      <p>Física de Serway / Sears y Zemansky</p>
+      <p><strong>Tomo:</strong> Por especificar</p>
+    </div>
   </section>
 
   <a class="physics-page__back" routerLink="/cliente/cliente-evento">Volver a eventos</a>
